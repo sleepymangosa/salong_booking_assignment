@@ -1,0 +1,59 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Fade &amp; Co. Bookings{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bookings/css/style.css' %}">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <div class="wrap header-row">
+            <a class="brand" href="{% url 'bookings:home' %}">Fade &amp; Co.</a>
+            <nav aria-label="Main navigation">
+                <ul class="nav-list">
+                    <li><a href="{% url 'bookings:home' %}">Home</a></li>
+                    <li><a href="{% url 'bookings:availability' %}">Check times</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'bookings:booking_create' %}">Book</a></li>
+                        <li><a href="{% url 'bookings:dashboard' %}">My bookings</a></li>
+                        <li><a href="{% url 'bookings:profile' %}">Profile</a></li>
+                        {% if user.is_staff %}
+                            <li><a href="{% url 'bookings:manage_bookings' %}">Manage bookings</a></li>
+                            <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                        {% endif %}
+                        <li>
+                            <form class="inline-form" method="post" action="{% url 'bookings:logout' %}">
+                                {% csrf_token %}
+                                <button class="link-button" type="submit">Log out</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'bookings:login' %}">Log in</a></li>
+                        <li><a class="button small" href="{% url 'bookings:register' %}">Create account</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <div class="pole" aria-hidden="true"></div>
+    </header>
+
+    <main id="main" class="wrap">
+        {% if messages %}
+            <div class="messages" role="status">
+                {% for message in messages %}
+                    <p class="message {{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <p>Fade &amp; Co. &middot; Open Monday to Saturday, 09:00 to 17:00</p>
+        </div>
+    </footer>
+</body>
+</html>

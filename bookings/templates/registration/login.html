@@ -1,0 +1,13 @@
+{% extends 'bookings/base.html' %}
+{% block title %}Log in | Fade &amp; Co.{% endblock %}
+{% block content %}
+<section class="narrow">
+    <h1>Log in</h1>
+    <form method="post" class="panel form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Log in</button>
+    </form>
+    <p>New here? <a href="{% url 'bookings:register' %}">Create an account</a> to start booking.</p>
+</section>
+{% endblock %}

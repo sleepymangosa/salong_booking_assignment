@@ -1,0 +1,51 @@
+{% extends 'bookings/base.html' %}
+{% block title %}Fade &amp; Co. | Book your appointment{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>Book your chair in under a minute.</h1>
+    <p>Pick a service, choose your stylist and see the times that are actually free. No calls, no waiting for a reply.</p>
+    <p>
+        <a class="button" href="{% url 'bookings:booking_create' %}">Book an appointment</a>
+        <a class="button ghost" href="{% url 'bookings:availability' %}">See free times</a>
+    </p>
+</section>
+
+<section>
+    <h2>Services</h2>
+    {% if services %}
+    <div class="table-scroll">
+        <table>
+            <caption class="visually-hidden">Services and prices</caption>
+            <thead><tr><th scope="col">Service</th><th scope="col">What you get</th><th scope="col">Time</th><th scope="col">Price</th></tr></thead>
+            <tbody>
+            {% for service in services %}
+                <tr>
+                    <th scope="row">{{ service.name }}</th>
+                    <td>{{ service.description }}</td>
+                    <td>{{ service.duration_minutes }} min</td>
+                    <td>R{{ service.price }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="empty">No services are listed yet. Check back soon.</p>
+    {% endif %}
+</section>
+
+<section>
+    <h2>Our stylists</h2>
+    {% for stylist in stylists %}
+        <article class="panel">
+            <h3>{{ stylist.name }}</h3>
+            <p>{{ stylist.bio }}</p>
+            <p class="muted">Offers:
+                {% for service in stylist.services.all %}{{ service.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+            </p>
+        </article>
+    {% empty %}
+        <p class="empty">No stylists are listed yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}

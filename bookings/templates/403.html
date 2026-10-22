@@ -1,0 +1,8 @@
+{% extends 'bookings/base.html' %}
+{% block title %}Not allowed | Fade &amp; Co.{% endblock %}
+{% block content %}
+<section class="narrow">
+    <h1>You do not have access to this page</h1>
+    <p>This page is for salon staff only. <a href="{% url 'bookings:dashboard' %}">Go to your bookings</a>.</p>
+</section>
+{% endblock %}

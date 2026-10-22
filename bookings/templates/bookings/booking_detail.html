@@ -1,0 +1,33 @@
+{% extends 'bookings/base.html' %}
+{% block title %}Booking details | Fade &amp; Co.{% endblock %}
+{% block content %}
+<section class="narrow">
+    <h1>Booking details</h1>
+    <dl class="panel details">
+        <dt>Status</dt><dd><span class="status {{ booking.status }}">{{ booking.get_status_display }}</span></dd>
+        <dt>Customer</dt><dd>{{ booking.customer.get_full_name|default:booking.customer.username }}</dd>
+        <dt>Service</dt><dd>{{ booking.service.name }} (R{{ booking.service.price }})</dd>
+        <dt>Stylist</dt><dd>{{ booking.stylist.name }}</dd>
+        <dt>Date</dt><dd>{{ booking.date|date:"l, j F Y" }}</dd>
+        <dt>Time</dt><dd>{{ booking.start_time|time:"H:i" }} to {{ booking.end_time|time:"H:i" }}</dd>
+        <dt>Notes</dt><dd>{{ booking.notes|default:"None" }}</dd>
+    </dl>
+
+    <p>
+        {% if booking.is_active %}
+            <a class="button" href="{% url 'bookings:booking_update' booking.pk %}">Change booking</a>
+            <a class="button ghost" href="{% url 'bookings:booking_cancel' booking.pk %}">Cancel booking</a>
+        {% endif %}
+        <a class="button ghost" href="{% url 'bookings:dashboard' %}">Back to my bookings</a>
+    </p>
+
+    {% if status_form %}
+    <form method="post" action="{% url 'bookings:booking_set_status' booking.pk %}" class="panel form">
+        {% csrf_token %}
+        <h2>Update status (staff)</h2>
+        {{ status_form.as_p }}
+        <button class="button" type="submit">Save status</button>
+    </form>
+    {% endif %}
+</section>
+{% endblock %}

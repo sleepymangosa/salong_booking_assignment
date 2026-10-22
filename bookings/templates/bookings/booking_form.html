@@ -1,0 +1,14 @@
+{% extends 'bookings/base.html' %}
+{% block title %}{{ heading }} | Fade &amp; Co.{% endblock %}
+{% block content %}
+<section class="narrow">
+    <h1>{{ heading }}</h1>
+    <p class="muted">Not sure what is free? <a href="{% url 'bookings:availability' %}">Check available times</a> first.</p>
+    <form method="post" class="panel form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">{{ button }}</button>
+        <a class="button ghost" href="{% url 'bookings:dashboard' %}">Cancel</a>
+    </form>
+</section>
+{% endblock %}

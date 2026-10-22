@@ -1,0 +1,16 @@
+{% for booking in bookings %}
+<tr>
+    <td>{{ booking.date|date:"D, j M Y" }}</td>
+    <td>{{ booking.start_time|time:"H:i" }} to {{ booking.end_time|time:"H:i" }}</td>
+    <td>{{ booking.service.name }}</td>
+    <td>{{ booking.stylist.name }}</td>
+    <td><span class="status {{ booking.status }}">{{ booking.get_status_display }}</span></td>
+    <td class="actions">
+        <a href="{% url 'bookings:booking_detail' booking.pk %}">View</a>
+        {% if booking.is_active %}
+            <a href="{% url 'bookings:booking_update' booking.pk %}">Change</a>
+            <a href="{% url 'bookings:booking_cancel' booking.pk %}">Cancel</a>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}

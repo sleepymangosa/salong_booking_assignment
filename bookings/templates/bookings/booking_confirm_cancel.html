@@ -1,0 +1,13 @@
+{% extends 'bookings/base.html' %}
+{% block title %}Cancel booking | Fade &amp; Co.{% endblock %}
+{% block content %}
+<section class="narrow">
+    <h1>Cancel this booking?</h1>
+    <p>{{ booking.service.name }} with {{ booking.stylist.name }} on {{ booking.date|date:"l, j F Y" }} at {{ booking.start_time|time:"H:i" }}.</p>
+    <form method="post" class="form">
+        {% csrf_token %}
+        <button class="button danger" type="submit">Yes, cancel booking</button>
+        <a class="button ghost" href="{% url 'bookings:booking_detail' booking.pk %}">Keep booking</a>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'bookings/base.html' %}
+{% block title %}My profile | Fade &amp; Co.{% endblock %}
+{% block content %}
+<section class="narrow">
+    <h1>My profile</h1>
+    <form method="post" class="panel form">
+        {% csrf_token %}
+        <p class="muted">Username: {{ user.username }}</p>
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <button class="button" type="submit">Save profile</button>
+    </form>
+</section>
+{% endblock %}

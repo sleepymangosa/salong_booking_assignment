@@ -1,0 +1,27 @@
+{% extends 'bookings/base.html' %}
+{% block title %}Available times | Fade &amp; Co.{% endblock %}
+{% block content %}
+<section class="narrow">
+    <h1>Check available times</h1>
+    <form method="get" class="panel form">
+        {{ form.as_p }}
+        <button class="button" type="submit">Show free times</button>
+    </form>
+</section>
+
+{% if chosen %}
+<section>
+    <h2>{{ chosen.service.name }} with {{ chosen.stylist.name }} on {{ chosen.date|date:"l, j F Y" }}</h2>
+    {% if slots %}
+        <p class="muted">Select a time to start your booking.</p>
+        <ul class="slots">
+            {% for slot in slots %}
+                <li><a class="slot" href="{{ slot.url }}">{{ slot.label }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty">No free times on this day. The salon may be closed, fully booked or the day has passed. Try another date or stylist.</p>
+    {% endif %}
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,129 @@
+/* Fade & Co. booking site
+   Palette: ink #1b2430, paper #f1f4f8, panel #ffffff, line #d5dce5,
+   pole red #c8353b, pole blue #2a4d8f, action teal #0f6b66 */
+:root {
+    --ink: #1b2430;
+    --muted: #55606e;
+    --paper: #f1f4f8;
+    --panel: #ffffff;
+    --line: #d5dce5;
+    --red: #c8353b;
+    --blue: #2a4d8f;
+    --action: #0f6b66;
+    --action-dark: #0a504c;
+    --radius: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.55;
+}
+
+h1, h2, h3, .brand { font-family: Georgia, "Times New Roman", serif; line-height: 1.2; }
+h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 1.5rem 0 0.75rem; }
+h2 { font-size: 1.4rem; margin: 2rem 0 0.75rem; }
+h3 { font-size: 1.15rem; margin: 0 0 0.25rem; }
+
+a { color: var(--action); }
+a:hover { color: var(--action-dark); }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+.wrap { width: min(1080px, 100% - 2rem); margin-inline: auto; }
+.narrow { max-width: 560px; }
+.muted { color: var(--muted); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+.skip-link { position: absolute; left: -999px; background: var(--ink); color: #fff; padding: 0.5rem 1rem; }
+.skip-link:focus { left: 0; z-index: 10; }
+
+/* Header: the barber-pole stripe is the one decorative element on the site */
+.site-header { background: var(--panel); border-bottom: 1px solid var(--line); }
+.header-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1.5rem; padding: 0.75rem 0; }
+.brand { font-size: 1.6rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+.nav-list { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.1rem; list-style: none; margin: 0; padding: 0; }
+.nav-list a { color: var(--ink); text-decoration: none; padding: 0.25rem 0; }
+.nav-list a:hover { text-decoration: underline; }
+.nav-list a.button { color: #fff; }
+.pole {
+    height: 8px;
+    background: repeating-linear-gradient(-45deg, var(--red) 0 12px, #fff 12px 24px, var(--blue) 24px 36px, #fff 36px 48px);
+}
+.inline-form { display: inline; margin: 0; }
+.link-button { background: none; border: 0; padding: 0.25rem 0; font: inherit; color: var(--ink); cursor: pointer; }
+.link-button:hover { text-decoration: underline; }
+
+main { padding-bottom: 3rem; min-height: 60vh; }
+
+.hero { padding: 2.5rem 0 1rem; max-width: 640px; }
+.hero p { font-size: 1.1rem; color: var(--muted); }
+
+/* Buttons */
+.button {
+    display: inline-block; padding: 0.6rem 1.1rem; border: 2px solid var(--action);
+    background: var(--action); color: #fff; border-radius: var(--radius);
+    font: inherit; font-weight: 600; text-decoration: none; cursor: pointer;
+}
+.button:hover { background: var(--action-dark); border-color: var(--action-dark); color: #fff; }
+.button.ghost { background: transparent; color: var(--action); }
+.button.ghost:hover { background: #e3f1f0; color: var(--action-dark); }
+.button.danger { background: var(--red); border-color: var(--red); }
+.button.danger:hover { background: #a42a2f; border-color: #a42a2f; }
+.button.small { padding: 0.3rem 0.8rem; font-size: 0.95rem; }
+
+/* Panels and forms */
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1rem 0; }
+.form p { margin: 0 0 1rem; }
+.form label { display: block; font-weight: 600; margin-bottom: 0.25rem; }
+.form input:not([type=checkbox]), .form select, .form textarea,
+.filters input, .filters select {
+    width: 100%; padding: 0.5rem 0.6rem; border: 1px solid #9aa6b5; border-radius: var(--radius);
+    font: inherit; background: #fff; color: var(--ink);
+}
+.form .helptext, .helptext { display: block; font-size: 0.88rem; color: var(--muted); font-weight: 400; }
+.errorlist { list-style: none; margin: 0 0 0.4rem; padding: 0.4rem 0.6rem; background: #fbe9ea; border-left: 4px solid var(--red); color: #7d1d21; }
+
+.messages { margin-top: 1rem; }
+.message { margin: 0 0 0.5rem; padding: 0.7rem 1rem; border-radius: var(--radius); border-left: 5px solid var(--blue); background: #e8eef8; }
+.message.success { border-color: var(--action); background: #e1f2f0; }
+.message.error { border-color: var(--red); background: #fbe9ea; }
+
+/* Tables */
+.table-scroll { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
+table { width: 100%; border-collapse: collapse; min-width: 560px; }
+th, td { text-align: left; padding: 0.65rem 0.8rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { background: var(--ink); color: #fff; font-weight: 600; }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+.actions a { margin-right: 0.75rem; white-space: nowrap; }
+
+.status { display: inline-block; padding: 0.1rem 0.55rem; border-radius: 999px; font-size: 0.88rem; font-weight: 600; border: 1px solid currentColor; }
+.status.pending { color: #8a5a00; background: #fff4d6; }
+.status.confirmed { color: var(--action-dark); background: #e1f2f0; }
+.status.completed { color: var(--blue); background: #e8eef8; }
+.status.cancelled { color: #7d1d21; background: #fbe9ea; }
+
+.empty { padding: 1rem; background: var(--panel); border: 1px dashed #9aa6b5; border-radius: var(--radius); color: var(--muted); }
+
+.details { display: grid; grid-template-columns: max-content 1fr; gap: 0.5rem 1.5rem; }
+.details dt { font-weight: 600; }
+.details dd { margin: 0; }
+
+.slots { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; padding: 0; margin: 1rem 0; }
+.slot { display: inline-block; padding: 0.5rem 1rem; border: 2px solid var(--action); border-radius: var(--radius); font-weight: 700; text-decoration: none; background: #fff; }
+.slot:hover { background: var(--action); color: #fff; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; }
+.filters label { flex: 1 1 180px; font-weight: 600; }
+.pager { display: flex; gap: 1rem; align-items: center; margin: 1rem 0; }
+
+.site-footer { border-top: 1px solid var(--line); background: var(--panel); padding: 1rem 0; color: var(--muted); font-size: 0.92rem; }
+
+@media (max-width: 600px) {
+    .details { grid-template-columns: 1fr; gap: 0.1rem; }
+    .details dd { margin-bottom: 0.6rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
